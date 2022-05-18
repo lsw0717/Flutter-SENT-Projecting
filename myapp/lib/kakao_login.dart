@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ class SignIn extends StatelessWidget {
     }
   }
 
-  //사용자 정보 가져오기
+  //사용자 정보 요청
   void _getUserInfo() async {
     try {
       User user = await UserApi.instance.me();
@@ -30,6 +32,40 @@ class SignIn extends StatelessWidget {
     }
   }
 
+  //카카오톡 어플로 로그인
+  void kakaoAppLogin() async{
+    OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
+    print('카카오톡으로 로그인 성공 ${token.accessToken}');
+    var queryParameters = {'Authorization': token.accessToken}; //access token을 Map에 담는다.
+    sendTokenBack(queryParameters); // access token을 넘겨준다.
+  }
+
+  //카카오톡 계정으로(웹페이지) 로그인
+  void kakaoAccountLogin() async{
+    // prompts를 [Prompt.login]으로 지정하여
+    //기존의 로그인 여부와 상관없이 사용자에게 재인증을 요청
+    OAuthToken token = await UserApi.instance.loginWithKakaoAccount(prompts: [Prompt.login]);
+    print('카카오계정으로 로그인 성공 ${token.accessToken}');
+    var queryParameters = {'Authorization': token.accessToken.toString()};  //access token을 Map에 담는다.
+    sendTokenBack(queryParameters); // access token을 넘겨준다.
+  }
+
+  //access token을 백에 보내기
+  void sendTokenBack(Map<String, String> queryParameters)async{
+    //var response = await http.get(Uri.http("192.168.200.165","/api/login/oauth2/kakao", queryParameters));
+    var response= await http.get(Uri.parse('https://sentapp.com/oauth/api/login/oauth2/kakao'),headers: queryParameters);
+
+    if(response.statusCode==200){
+      print("GET 정상 완료 ${response.statusCode}");
+      print(response.toString());
+    }
+    else{
+      throw Exception('GET 오류 ${response.statusCode}');
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -41,8 +77,7 @@ class SignIn extends StatelessWidget {
           if (await isKakaoTalkInstalled()) {
             //카카오톡으로 로그인
             try {
-              OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
-              print('카카오톡으로 로그인 성공 ${token.accessToken}');
+              kakaoAppLogin(); //카카오톡 어플로 로그인
               _getTokenInfo(); //토큰 정보 보기
               _getUserInfo(); //사용자 정보 가져오기
             } catch (error) {
@@ -54,9 +89,7 @@ class SignIn extends StatelessWidget {
               }
               // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오 계정으로 웹 로그인
               try {
-                OAuthToken token =
-                    await UserApi.instance.loginWithKakaoAccount();
-                print('카카오계정으로 로그인 성공 ${token.accessToken}');
+                kakaoAccountLogin(); //카카오톡 계정으로(웹페이지) 로그인
                 _getTokenInfo(); //토큰 정보 보기
                 _getUserInfo(); //사용자 정보 가져오기
               } catch (error) {
@@ -68,11 +101,7 @@ class SignIn extends StatelessWidget {
           else {
             //카카오 계정으로 웹 로그인
             try {
-              // prompts를 [Prompt.login]으로 지정하여
-              //기존의 로그인 여부와 상관없이 사용자에게 재인증을 요청
-              OAuthToken token = await UserApi.instance
-                  .loginWithKakaoAccount(prompts: [Prompt.login]);
-              print('카카오계정으로 로그인 성공 ${token.accessToken}');
+              kakaoAccountLogin(); //카카오톡 계정으로(웹페이지) 로그인
               _getTokenInfo(); //토큰 정보 보기
               _getUserInfo(); //사용자 정보 가져오기
             } catch (error) {

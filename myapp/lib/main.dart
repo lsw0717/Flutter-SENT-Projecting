@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import './style.dart' as style;
-import './signin.dart' as signin;
+import './kakao_login.dart' as kakao_login;
 
 void main() {
   //KakaoContext.clientId = '471360d9cc01e28f66ae693bc7b9cae7';
@@ -18,25 +18,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage('assets/background.png'), // 배경 이미지
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Sign In Page",style: style.text2,),
       ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              signin.SignIn(),
+              kakao_login.SignIn(),
               ElevatedButton(onPressed: () {}, child: Text('key'))
             ],
           ),
         ),
-      ),
-    );
+      );
+
   }
 }
