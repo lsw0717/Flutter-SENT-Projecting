@@ -16,7 +16,6 @@ class KakaoLogin extends StatefulWidget {
 class _KakaoLoginState extends State<KakaoLogin> {
 
   var isUser = false;    //백단 코드가 없어서 이 state 값을 조종하며 '신규(true)'/'기존 유저(false)' 페이지 이동을 실험한다.
-  var pageMove = 0;     // 1 == main_page , 2 == user_info_regi.
 
   //토큰 정보 보기
   void _getTokenInfo() async {
@@ -59,8 +58,6 @@ class _KakaoLoginState extends State<KakaoLogin> {
     print('카카오계정으로 로그인 성공 ${token.accessToken}');
     var queryParameters = {'Authorization': token.accessToken.toString()};  //access token을 Map에 담는다.
     sendTokenBack(queryParameters); // access token을 넘겨준다.
-
-
   }
 
   //access token을 백에 보내기
@@ -71,19 +68,13 @@ class _KakaoLoginState extends State<KakaoLogin> {
       print("GET 정상 완료 ${response.statusCode}");
 
       // print(jsonDecode(response.body));
-      //access token을 보내고 받은 response가 '기존 유저' (isUser = true) 이면 --> state pageMove == 1 바꾼다.
+      //access token을 보내고 받은 response가 '기존 유저' (isUser = true) 이면 main_page 로 이동
       if ( isUser == true ){
-        setState(() {
-          pageMove = 1;
-        });
         // main_page 로 이동
         moveToMainPage();
       }
-      //access token을 보내고 받은 response가 '기존 유저' (isUser = true) 이면 --> state pageMove == 1 바꾼다.
+      //access token을 보내고 받은 response가 '기존 유저' (isUser = true) 이면  user_info_regi 로 이동
       else if ( isUser == false ){
-        setState(() {
-          pageMove = 2;
-        });
         // user_info_regi 로 이동
         moveToUserInfoRegi();
       }
@@ -107,7 +98,7 @@ class _KakaoLoginState extends State<KakaoLogin> {
   Widget build(BuildContext context) {
     return InkWell(
         child: Image.asset(
-          'assets/kakao_login_medium_narrow.png',
+          'assets/kakaobtn.png',
         ),
         onTap: () async {
           //카카오톡이 설치 되었다면
@@ -119,7 +110,6 @@ class _KakaoLoginState extends State<KakaoLogin> {
               _getUserInfo(); //사용자 정보 가져오기
             } catch (error) {
               print('카카오톡으로 로그인 실패 $error');
-
               //사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
               //의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
               if (error is PlatformException && error.code == 'CANCELED') {
@@ -142,7 +132,6 @@ class _KakaoLoginState extends State<KakaoLogin> {
               kakaoAccountLogin(); //카카오톡 계정으로(웹페이지) 로그인
               _getTokenInfo(); //토큰 정보 보기
               _getUserInfo(); //사용자 정보 가져오기
-
             } catch (error) {
               print('카카오계정으로 로그인 실패 $error');
             }

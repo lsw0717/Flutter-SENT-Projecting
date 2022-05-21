@@ -5,6 +5,10 @@ import './src/app.dart' as app;
 import 'firebase_options.dart';
 import './src/pages/after_login/main_page.dart' as main_page;
 import './src/pages/after_login/user_info_regi.dart' as user_info_regi;
+import './style.dart' as stlye ;
+import './src/pages/after_login/team_regi.dart' as team_regi;
+import './src/pages/after_login/user_regi.dart' as user_regi;
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +27,11 @@ class MyApp extends StatelessWidget {
       routes: {
         '/main_page': (context) => main_page.MainPage(),
         '/user_info_regi': (context) => user_info_regi.UserIfoRegi(),
+        '/team_regi': (context) => team_regi.TeamRegi(),
+        '/user_regi': (context) => user_regi.UserRegi(),
       },
       title: 'Flutter',
-      theme: ThemeData(),
+      theme: stlye.theme,
       debugShowCheckedModeBanner: false,
       home: app.App(),
 

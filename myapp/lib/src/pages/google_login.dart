@@ -15,7 +15,6 @@ class GoogleLogin extends StatefulWidget {
 class _GoogleLoginState extends State<GoogleLogin> {
 
   var isUser = false;    //백단 코드가 없어서 이 state 값을 조종하며 '신규(true)'/'기존 유저(false)' 페이지 이동을 실험한다.
-  var pageMove = 0;     // 1 == main_page , 2 == user_info_regi.
 
 
   //google Login 함수
@@ -47,19 +46,13 @@ class _GoogleLoginState extends State<GoogleLogin> {
     if(response.statusCode==200){
       print("GET 정상 완료 ${response.statusCode}");
       //print(jsonDecode(response.body));
-      //access token을 보내고 받은 response가 '기존 유저' (isUser = true) 이면 --> state pageMove == 1 바꾼다.
+      //access token을 보내고 받은 response가 '기존 유저' (isUser = true) 이면 main_page 로 이동
       if ( isUser == true ){
-        setState(() {
-          pageMove = 1;
-        });
         // main_page 로 이동
         moveToMainPage();
       }
-      //access token을 보내고 받은 response가 '기존 유저' (isUser = true) 이면 --> state pageMove == 1 바꾼다.
+      //access token을 보내고 받은 response가 '기존 유저' (isUser = true) 이면 user_info_regi 로 이동
       else if ( isUser == false ){
-        setState(() {
-          pageMove = 2;
-        });
         // user_info_regi 로 이동
         moveToUserInfoRegi();
       }
@@ -68,7 +61,6 @@ class _GoogleLoginState extends State<GoogleLogin> {
       throw Exception('GET 오류 ${response.statusCode}');
     }
   }
-
 
   // main_page 로 이동
   void moveToMainPage() async {
@@ -83,9 +75,9 @@ class _GoogleLoginState extends State<GoogleLogin> {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-            child: Text("Google Login"),
-            onPressed:(){
+    return InkWell(
+            child: Image.asset('assets/googlebtn.png'),
+            onTap:(){
               signInWithGoogle();
               },
           );
