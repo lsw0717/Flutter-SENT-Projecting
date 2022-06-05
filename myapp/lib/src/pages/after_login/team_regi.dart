@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart'; //이미지 가져오는 패키지
 import 'dart:io'; //파일 다루는 유용한 패키지
@@ -70,14 +69,6 @@ class _TeamRegiState extends State<TeamRegi> {
     '성북구'
   ];
 
-  // 동/면/읍 데이터    @'시/구/군 중 1개를 선택한 값'을 back 에 보내서 해당하는 '동/면/읍 리스트'를 reponse로 받은것이다@
-  var areaData_3 = [
-    '공릉동',
-    '상계동',
-    '월계동',
-    '중계동',
-    '하계동',
-  ];
 
   //팀명 중복 확인을 위한 함수 (팀명을 back에 get요청해 중복/미중복 여부를 response로 받는다)
   void sendTeamNameToBack(String teamName) async {
@@ -109,9 +100,7 @@ class _TeamRegiState extends State<TeamRegi> {
     }
   }
 
-  //시/도 or 시/구/군 or 동/면/읍 선택 후 값을 back에 보내고 response(ex)(시/도 --> 시/구/군 list data)를 받는다.
-  //areaNumber = 시/도 == 0 , 시/구/군 == 1
-  //areaSelectNumber = ex) 시/도 > 노원구 (0) , 강남구 (1), 강동구 (2)
+  //시/도 선택 후 값을 back에 보내고 response(ex)(시/도 --> 시/구/군 list data)를 받는다.
   void sendAreaSelectToBack(String areaData) async {
 
     var queryParameters = {'area': base64.encode(utf8.encode(areaData))};
@@ -280,7 +269,6 @@ class _TeamRegiState extends State<TeamRegi> {
                               sendAreaSelectToBack: sendAreaSelectToBack,
                               areaData_2: areaData_2,
                               addTeamFullArea: addTeamFullArea,
-                              areaData_3: areaData_3,
                               teamFullAreaIsFullIsTrue:
                                   teamFullAreaIsFullIsTrue);
                         });
@@ -337,14 +325,12 @@ class AreaDialogFirst extends StatelessWidget {
       this.sendAreaSelectToBack,
       this.areaData_2,
       this.addTeamFullArea,
-      this.areaData_3,
       this.teamFullAreaIsFullIsTrue})
       : super(key: key);
   final areaData_1; // 시/도 리스트 데이터
   final sendAreaSelectToBack; //시/도 선택 후 값을 back에 보내고 response( 시/구/군 리스트 데이터)를 받는다.
   final areaData_2; // 시/구/군 리스트 데이터
   final addTeamFullArea; //teamFullArea state를 자식 위젯에서 변경하기 위한 함수.
-  final areaData_3; // 동/면/읍 데이터
   final teamFullAreaIsFullIsTrue; //teamFullAreaIsFull state를 자식 위젯에서 true로 바꾸어주는 함수
 
   @override
@@ -370,9 +356,7 @@ class AreaDialogFirst extends StatelessWidget {
                       builder: (context) {
                         return AreaDialogSecond(
                             areaData_2: areaData_2,
-                            sendAreaSelectToBack: sendAreaSelectToBack,
                             addTeamFullArea: addTeamFullArea,
-                            areaData_3: areaData_3,
                             teamFullAreaIsFullIsTrue: teamFullAreaIsFullIsTrue);
                       });
                 },
@@ -390,16 +374,12 @@ class AreaDialogSecond extends StatelessWidget {
   const AreaDialogSecond(
       {Key? key,
       this.areaData_2,
-      this.sendAreaSelectToBack,
       this.addTeamFullArea,
-      this.areaData_3,
       this.teamFullAreaIsFullIsTrue})
       : super(key: key);
 
   final areaData_2; // 시/구/군 데이터
-  final sendAreaSelectToBack; //시/구/군 선택 후 값을 back에 보내고 response( 동/면/읍 리스트 데이터)를 받는다.
   final addTeamFullArea; //teamFullArea state를 자식 위젯에서 변경하기 위한 함수.
-  final areaData_3; // 동/면/읍 데이터
   final teamFullAreaIsFullIsTrue; //teamFullAreaIsFull state를 자식 위젯에서 true로 바꾸어주는 함수
 
   @override
@@ -417,54 +397,7 @@ class AreaDialogSecond extends StatelessWidget {
                 title: Text(areaData_2[i]),
                 onTap: () {
                   Navigator.pop(context);
-                  sendAreaSelectToBack(areaData_2[i]);
                   addTeamFullArea(areaData_2[i]);
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AreaDialogThird(
-                            areaData_3: areaData_3,
-                            addTeamFullArea: addTeamFullArea,
-                            teamFullAreaIsFullIsTrue: teamFullAreaIsFullIsTrue);
-                      });
-                },
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-//동/면/읍 dialog
-class AreaDialogThird extends StatelessWidget {
-  const AreaDialogThird(
-      {Key? key,
-      this.areaData_3,
-      this.addTeamFullArea,
-      this.teamFullAreaIsFullIsTrue})
-      : super(key: key);
-  final areaData_3; // 동/면/읍 데이터
-  final addTeamFullArea; //teamFullArea state를 자식 위젯에서 변경하기 위한 함수.
-  final teamFullAreaIsFullIsTrue; //teamFullAreaIsFull state를 자식 위젯에서 true로 바꾸어주는 함수
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('동/면/읍'),
-      content: SizedBox(
-        width: 300.0,
-        height: 300.0,
-        child: ListView.builder(
-          itemCount: areaData_3.length,
-          itemBuilder: (context, i) {
-            return Card(
-              child: ListTile(
-                title: Text(areaData_3[i]),
-                onTap: () {
-                  Navigator.pop(context);
-                  addTeamFullArea(areaData_3[i]);
                   teamFullAreaIsFullIsTrue(true);
                 },
               ),
@@ -475,6 +408,7 @@ class AreaDialogThird extends StatelessWidget {
     );
   }
 }
+
 
 //팀 등록 완료 버튼 누르면 나오는 dialog
 class TeamRegiCompleteDailog extends StatelessWidget {

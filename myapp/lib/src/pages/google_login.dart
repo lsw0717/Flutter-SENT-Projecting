@@ -14,7 +14,7 @@ class GoogleLogin extends StatefulWidget {
 
 class _GoogleLoginState extends State<GoogleLogin> {
 
-  var isUser = false;    //백단 코드가 없어서 이 state 값을 조종하며 '신규(true)'/'기존 유저(false)' 페이지 이동을 실험한다.
+  var isUser = true;    //백단 코드가 없어서 이 state 값을 조종하며 '신규(true)'/'기존 유저(false)' 페이지 이동을 실험한다.
 
 
   //google Login 함수

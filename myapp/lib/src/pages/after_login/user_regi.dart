@@ -101,147 +101,156 @@ class _UserRegiState extends State<UserRegi> {
     if (response.statusCode == 200) {
       print('팀 등록 데이터 잘 보내짐');
       print(userFullData);
-    }
-    else {
+    } else {
       throw Exception('GET 오류 ${response.statusCode}');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('유저 정보 등록'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            //닉네임 입력
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-              child: Row(children: [
-                Flexible(
-                  child: TextField(
-                    controller: inputNickNameData,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '닉네임 (필수)',
-                        hintText: '닉네임을 입력하세요.'),
-                    onSubmitted: (String str) {
-                      setState(() {
-                        nickNameUsable = false;
-                      });
-                    },
+    return WillPopScope(
+      onWillPop: () {
+        return Future(() => false);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text('유저 정보 등록'),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              //닉네임 입력
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                child: Row(children: [
+                  Flexible(
+                    child: TextField(
+                      controller: inputNickNameData,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: '닉네임 (필수)',
+                          hintText: '닉네임을 입력하세요.'),
+                      onSubmitted: (String str) {
+                        setState(() {
+                          nickNameUsable = false;
+                        });
+                      },
+                    ),
                   ),
+                  TextButton(
+                      child: Text('중복확인'),
+                      onPressed: () {
+                        if (inputNickNameData.text.isNotEmpty &&
+                            !inputNickNameData.text.startsWith(' ')) {
+                          sendNickNameToBack(base64
+                              .encode(utf8.encode(inputNickNameData.text)));
+                        }
+                      }),
+                ]),
+              ),
+              //활동 지역
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: ElevatedButton(
+                    child: Text('활동 지역 선택  (필수)'),
+                    onPressed: () {
+                      setState(() {
+                        areaIsTrue = false;
+                      });
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AreaDialog(
+                              areaData: areaData,
+                              areaDataSave: areaDataSave,
+                            );
+                          });
+                    },
+                  )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(utf8
+                      .decode(base64.decode(userFullData['area'].toString()))),
+                ],
+              ),
+              //선호 포지션 입력
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                child: TextField(
+                  controller: inputPositonData,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: '선호 포지션  (선택)',
+                      hintText: '택 1 .(ex, 공격수, 수비수, 미드필더, 골키퍼)'),
+                  onSubmitted: (String position) {
+                    setState(() {
+                      if (position == '공격수' ||
+                          position == '수비수' ||
+                          position == '미드필더' ||
+                          position == '골키퍼') {
+                        userFullData['position'] =
+                            base64.encode(utf8.encode(position));
+                      } else {
+                        inputPositonData.text = '';
+                        snackBar('선호 포지션을 예시 중 하나로 입력하세요');
+                      }
+                    });
+                  },
                 ),
-                TextButton(
-                    child: Text('중복확인'),
+              ),
+              //선출 여부 입력
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                child: TextField(
+                  controller: inputProData,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: '선출 여부 (필수)',
+                      hintText: '(ex, 네, 아니요)'),
+                  onSubmitted: (String pro) {
+                    if (pro.isNotEmpty && !pro.startsWith(' ')) {
+                      if (inputProData.text == '네' ||
+                          inputProData.text == '아니요') {
+                        setState(() {
+                          userFullData['pro'] = base64.encode(utf8.encode(pro));
+                        });
+                      } else {
+                        inputProData.text = '';
+                        snackBar('선출 여부를 \'네\', \'아니요\'로 답하세요');
+                      }
+                    }
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 60.0, 0, 0),
+                child: ElevatedButton(
+                    child: Text('유저 등록 완료 하기'),
                     onPressed: () {
                       if (inputNickNameData.text.isNotEmpty &&
-                          !inputNickNameData.text.startsWith(' ')) {
-                        sendNickNameToBack(base64.encode(utf8.encode(inputNickNameData.text)));
+                          areaIsTrue == true &&
+                          inputProData.text.isNotEmpty) {
+                        if (nickNameUsable == false) {
+                          snackBar('닉네임 중복 체크 해주세요');
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return UserRegiCompleteDialog(
+                                    userFullData: userFullData,
+                                    sendUserRegiFullDataToBack:
+                                        sendUserRegiFullDataToBack);
+                              });
+                        }
+                      } else {
+                        snackBar('필수 사항들을 모두 입력해 주세요');
                       }
                     }),
-              ]),
-            ),
-            //활동 지역
-            Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: ElevatedButton(
-                  child: Text('활동 지역 선택  (필수)'),
-                  onPressed: () {
-                    setState(() {
-                      areaIsTrue = false;
-                    });
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AreaDialog(
-                            areaData: areaData,
-                            areaDataSave: areaDataSave,
-                          );
-                        });
-                  },
-                )),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(utf8.decode(base64.decode(userFullData['area'].toString()))),
-
-
-              ],
-            ),
-            //선호 포지션 입력
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-              child: TextField(
-                controller: inputPositonData,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: '선호 포지션  (선택)',
-                    hintText: '택 1 .(ex, 공격수, 수비수, 미드필더, 골키퍼)'),
-                onSubmitted: (String position) {
-                  setState(() {
-                    if(position == '공격수' || position == '수비수' || position == '미드필더' || position == '골키퍼'){
-                      userFullData['position'] = base64.encode(utf8.encode(position));
-                    }
-                    else{
-                      inputPositonData.text = '';
-                      snackBar('선호 포지션을 예시 중 하나로 입력하세요');
-                    }
-                  });
-                },
-              ),
-            ),
-            //선출 여부 입력
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-              child: TextField(
-                controller: inputProData,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: '선출 여부 (필수)',
-                    hintText: '(ex, 네, 아니요)'),
-                onSubmitted: (String pro) {
-                  if (pro.isNotEmpty && !pro.startsWith(' ')) {
-                    if (inputProData.text == '네' ||
-                        inputProData.text == '아니요') {
-                      setState(() {
-                        userFullData['pro'] = base64.encode(utf8.encode(pro));
-                      });
-                    } else {
-                      inputProData.text = '';
-                      snackBar('선출 여부를 \'네\', \'아니요\'로 답하세요');
-                    }
-                  }
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 60.0, 0, 0),
-              child: ElevatedButton(
-                  child: Text('유저 등록 완료 하기'),
-                  onPressed: () {
-                    if (inputNickNameData.text.isNotEmpty &&
-                        areaIsTrue == true &&
-                        inputProData.text.isNotEmpty) {
-                      if (nickNameUsable == false) {
-                        snackBar('닉네임 중복 체크 해주세요');
-                      } else {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return UserRegiCompleteDialog(
-                                  userFullData: userFullData,
-                                  sendUserRegiFullDataToBack : sendUserRegiFullDataToBack);
-                            });
-                      }
-                    } else {
-                      snackBar('필수 사항들을 모두 입력해 주세요');
-                    }
-                  }),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -285,7 +294,9 @@ class AreaDialog extends StatelessWidget {
 }
 
 class UserRegiCompleteDialog extends StatelessWidget {
-  const UserRegiCompleteDialog({Key? key, this.userFullData, this.sendUserRegiFullDataToBack}) : super(key: key);
+  const UserRegiCompleteDialog(
+      {Key? key, this.userFullData, this.sendUserRegiFullDataToBack})
+      : super(key: key);
   final userFullData;
   final sendUserRegiFullDataToBack;
 
@@ -301,26 +312,29 @@ class UserRegiCompleteDialog extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 10.0),
                   child: Row(children: [
-                    Text('닉네임 : ${ utf8.decode(base64.decode(userFullData['nickname']))}'),
-
+                    Text(
+                        '닉네임 : ${utf8.decode(base64.decode(userFullData['nickname']))}'),
                   ]),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 10.0),
                   child: Row(children: [
-                    Text('활동 지역 : ${ utf8.decode(base64.decode(userFullData['area']))}'),
+                    Text(
+                        '활동 지역 : ${utf8.decode(base64.decode(userFullData['area']))}'),
                   ]),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 10.0),
                   child: Row(children: [
-                    Text('선호 포지션 : ${ utf8.decode(base64.decode(userFullData['position']))}'),
+                    Text(
+                        '선호 포지션 : ${utf8.decode(base64.decode(userFullData['position']))}'),
                   ]),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 10.0),
                   child: Row(children: [
-                    Text('선출 여부 : ${ utf8.decode(base64.decode(userFullData['pro']))}'),
+                    Text(
+                        '선출 여부 : ${utf8.decode(base64.decode(userFullData['pro']))}'),
                   ]),
                 ),
               ],
@@ -348,13 +362,13 @@ class UserRegiCompleteDialog extends StatelessWidget {
                         TextButton(
                             onPressed: () {
                               //Navigator.of(context).pop();
-                              Navigator.pushReplacementNamed(context, '/main_page');
+                              Navigator.pushReplacementNamed(
+                                  context, '/main_page');
                             },
                             child: Text('OK')),
                       ],
                     );
                   });
-
             },
             child: Text('OK')),
       ],
