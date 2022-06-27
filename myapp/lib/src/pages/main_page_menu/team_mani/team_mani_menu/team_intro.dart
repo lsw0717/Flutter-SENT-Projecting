@@ -17,6 +17,7 @@ class _TeamIntroState extends State<TeamIntro> {
     return Scaffold(
       //팀 정보 수정 FAB
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.grey,
           child: Icon(Icons.edit),
           onPressed: () {
             Navigator.push(
@@ -224,7 +225,7 @@ class _EditPageState extends State<EditPage> {
                   Navigator.of(context).pop();
                   print(context.read<state_team_mani.Store1>().teaminfo);
                 },
-                child: Text('완료')),
+                child: Text('완료', style: TextStyle(color: Colors.white))),
           ],
         ),
         body: SingleChildScrollView(

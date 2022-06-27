@@ -23,7 +23,7 @@ class MainPage extends StatelessWidget {
                 currentAccountPicture: CircleAvatar(
                   backgroundImage: AssetImage('assets/img.png'),
                 ),
-                decoration: BoxDecoration(color: Colors.amber),
+                decoration: BoxDecoration(color: Colors.grey),
               ),
               ListTile(
                 title: Text('팀 관리'),

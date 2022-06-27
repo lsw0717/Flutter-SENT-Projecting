@@ -6,5 +6,5 @@ var text3 = TextStyle(color: Colors.black54, fontSize: 16);
 var theme = ThemeData(
     textTheme: TextTheme(bodyText2: text2),
     appBarTheme: AppBarTheme(
-  color: Colors.amber,
+  color: Colors.grey,
 ));

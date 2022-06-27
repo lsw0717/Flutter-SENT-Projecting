@@ -10,7 +10,7 @@ import './src/pages/after_login/team_regi.dart' as team_regi;
 import './src/pages/after_login/user_regi.dart' as user_regi;
 import 'src/pages/main_page_menu/team_mani/team_mani.dart' as team_mani;
 import 'package:provider/provider.dart';
-import 'package:myapp/stateDirectory/state_team_mani.dart';
+import 'package:myapp/stateDirectory/state_team_mani.dart' as state_team_mani;
 
 
 Future<void> main() async {
@@ -27,7 +27,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (c) => Store1())
+        ChangeNotifierProvider(create: (c) => state_team_mani.Store1()),
+        ChangeNotifierProvider(create: (c) => state_team_mani.Store2()),
+        ChangeNotifierProvider(create: (c) => state_team_mani.Store3())
       ],
       child: MaterialApp(
         initialRoute: '/',
