@@ -2,10 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+//import 'dart:convert';  //Jason Decode를 위한 패키지
 
-class SignIn extends StatelessWidget {
-  const SignIn({Key? key}) : super(key: key);
+
+
+
+class KakaoLogin extends StatefulWidget {
+  const KakaoLogin({Key? key}) : super(key: key);
+
+  @override
+  State<KakaoLogin> createState() => _KakaoLoginState();
+}
+class _KakaoLoginState extends State<KakaoLogin> {
+
+  var isUser = false;    //백단 코드가 없어서 이 state 값을 조종하며 '신규(true)'/'기존 유저(false)' 페이지 이동을 실험한다.
 
   //토큰 정보 보기
   void _getTokenInfo() async {
@@ -52,25 +62,43 @@ class SignIn extends StatelessWidget {
 
   //access token을 백에 보내기
   void sendTokenBack(Map<String, String> queryParameters)async{
-    //var response = await http.get(Uri.http("192.168.200.165","/api/login/oauth2/kakao", queryParameters));
-    var response= await http.get(Uri.parse('https://sentapp.com/oauth/api/login/oauth2/kakao'),headers: queryParameters);
+    var response= await http.get(Uri.parse('https://codingapple1.github.io/app/data.json'),headers: queryParameters);
 
     if(response.statusCode==200){
       print("GET 정상 완료 ${response.statusCode}");
-      print(response.toString());
+
+      // print(jsonDecode(response.body));
+      //access token을 보내고 받은 response가 '기존 유저' (isUser = true) 이면 main_page 로 이동
+      if ( isUser == true ){
+        // main_page 로 이동
+        moveToMainPage();
+      }
+      //access token을 보내고 받은 response가 '기존 유저' (isUser = true) 이면  user_info_regi 로 이동
+      else if ( isUser == false ){
+        // user_info_regi 로 이동
+        moveToUserInfoRegi();
+      }
     }
     else{
       throw Exception('GET 오류 ${response.statusCode}');
     }
   }
 
+  // main_page 로 이동
+  void moveToMainPage() async {
+    await Navigator.pushReplacementNamed(context, '/main_page');
+  }
 
+  // user_info_regi 로 이동
+  void moveToUserInfoRegi() async {
+    await Navigator.pushReplacementNamed(context, '/user_info_regi');
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         child: Image.asset(
-          'assets/kakao_login_medium_narrow.png',
+          'assets/kakaobtn.png',
         ),
         onTap: () async {
           //카카오톡이 설치 되었다면

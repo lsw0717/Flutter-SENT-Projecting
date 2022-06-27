@@ -1,16 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-import './style.dart' as style;
-import './kakao_login.dart' as kakao_login;
+import './src/app.dart' as app;
+import 'firebase_options.dart';
+import 'src/pages/main_page.dart' as main_page;
+import './src/pages/after_login/user_info_regi.dart' as user_info_regi;
+import './style.dart' as stlye ;
+import './src/pages/after_login/team_regi.dart' as team_regi;
+import './src/pages/after_login/user_regi.dart' as user_regi;
+import 'src/pages/main_page_menu/team_mani/team_mani.dart' as team_mani;
+import 'package:provider/provider.dart';
+import 'package:myapp/stateDirectory/state_team_mani.dart' as state_team_mani;
 
-void main() {
-  //KakaoContext.clientId = '471360d9cc01e28f66ae693bc7b9cae7';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   KakaoSdk.init(nativeAppKey: '471360d9cc01e28f66ae693bc7b9cae7');
-  runApp(MaterialApp(
-    theme: style.theme,
-    home: MyApp(),
-    debugShowCheckedModeBanner: false,
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,20 +25,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Sign In Page",style: style.text2,),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (c) => state_team_mani.Store1()),
+        ChangeNotifierProvider(create: (c) => state_team_mani.Store2()),
+        ChangeNotifierProvider(create: (c) => state_team_mani.Store3())
+      ],
+      child: MaterialApp(
+        initialRoute: '/',
+        routes: {
+          '/main_page': (context) => main_page.MainPage(),
+          '/user_info_regi': (context) => user_info_regi.UserIfoRegi(),
+          '/team_regi': (context) => team_regi.TeamRegi(),
+          '/user_regi': (context) => user_regi.UserRegi(),
+          '/team_mani': (context) => team_mani.TeamMani(),
+        },
+        title: 'Flutter',
+        theme: stlye.theme,
+        debugShowCheckedModeBanner: false,
+        home: app.App(),
+
       ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              kakao_login.SignIn(),
-              ElevatedButton(onPressed: () {}, child: Text('key'))
-            ],
-          ),
-        ),
-      );
+    );
 
   }
 }
