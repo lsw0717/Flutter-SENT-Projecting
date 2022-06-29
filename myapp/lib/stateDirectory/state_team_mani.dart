@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 
@@ -197,15 +196,40 @@ class Store2 extends ChangeNotifier {
 }
 
 //card 1 ~ 11 까지 에서 사용하는 state
-class Store3 extends ChangeNotifier{
+class Store3 extends ChangeNotifier {
   //카드 클릭했을 때 나오는 이름 리스틑 ( Bottom up sheet에 나오는 이름들)
-  var player= ['이상우','윤상원','이상빈','김남형','장준하','강동균','이승호','전대윤','이재혁','서영민','김예준'];
+  List<Map<String, String>> player = [
+    {'name': '이상우', 'position': 'LW', 'number': '7'},
+    {'name': '이상빈', 'position': 'LW', 'number': '7'},
+    {'name': '윤상원', 'position': 'LW', 'number': '7'},
+    {'name': '김남형', 'position': 'LW', 'number': '7'},
+    {'name': '장준하', 'position': 'LW', 'number': '7'},
+    {'name': '강동균', 'position': 'LW', 'number': '7'},
+    {'name': '이재혁', 'position': 'LW', 'number': '7'},
+    {'name': '서영민', 'position': 'LW', 'number': '7'},
+    {'name': '김예준', 'position': 'LW', 'number': '7'},
+    {'name': '이승호', 'position': 'LW', 'number': '7'},
+    {'name': '전대윤', 'position': 'LW', 'number': '7'}
+  ];
+
   //카드 1 ~ 11까지 선수 이름 넣은 리스트
-  var playerCardList = ['1','2','3','4','5','6','7','8','9','10','11'];
+  var playerCardList = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11'
+  ];
 
   //playerCardList에 선수 이름 추가하는 함수
-  changePlayerCardList(int index, String value){
-    if(playerCardList[index].isNotEmpty){
+  changePlayerCardList(int index, String value) {
+    if (playerCardList[index].isNotEmpty) {
       playerCardList.removeAt(index);
     }
     playerCardList.insert(index, value);
