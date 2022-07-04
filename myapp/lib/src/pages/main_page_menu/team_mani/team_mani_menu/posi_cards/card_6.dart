@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myapp/stateDirectory/state_team_mani.dart' as state_team_mani;
 import 'package:provider/provider.dart';
 
-
 class Card6 extends StatefulWidget {
   const Card6({Key? key}) : super(key: key);
 
@@ -29,13 +28,28 @@ class _Card6State extends State<Card6> {
                       return ListTile(
                         title: Text(context
                             .read<state_team_mani.Store3>()
-                            .player[i].values.toList()[0]
+                            .player[i]
+                            .values
+                            .toList()[0]
                             .toString()),
                         onTap: () {
-                          context
-                              .read<state_team_mani.Store3>()
-                              .changePlayerCardList(5,
-                              context.read<state_team_mani.Store3>().player[i].values.toList()[0]);
+                          context.read<state_team_mani.Store3>().changeCard6(
+                              'name',
+                              context
+                                  .read<state_team_mani.Store3>()
+                                  .player[i]
+                                  .values
+                                  .toList()[0]
+                                  .toString());
+                          //카드 등번호
+                          context.read<state_team_mani.Store3>().changeCard6(
+                              'number',
+                              context
+                                  .read<state_team_mani.Store3>()
+                                  .player[i]
+                                  .values
+                                  .toList()[2]
+                                  .toString());
                           Navigator.pop(context);
                         },
                       );
@@ -60,10 +74,27 @@ class _Card6State extends State<Card6> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(context
-                .watch<state_team_mani.Store3>()
-                .playerCardList[5]
-                .toString())
+            //카드 포메이션
+            Text(
+              context
+                  .watch<state_team_mani.Store3>()
+                  .card6['position']
+                  .toString(),
+              style: TextStyle(fontSize: 15),
+            ),
+            //선수 이름
+            Text(
+              context.watch<state_team_mani.Store3>().card6['name'].toString(),
+              style: TextStyle(fontSize: 15),
+            ),
+            //등번호
+            Text(
+              context
+                  .watch<state_team_mani.Store3>()
+                  .card6['number']
+                  .toString(),
+              style: TextStyle(fontSize: 15),
+            ),
           ],
         ),
       ),

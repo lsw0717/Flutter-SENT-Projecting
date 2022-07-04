@@ -28,13 +28,28 @@ class _Card2State extends State<Card2> {
                       return ListTile(
                         title: Text(context
                             .read<state_team_mani.Store3>()
-                            .player[i].values.toList()[0]
+                            .player[i]
+                            .values
+                            .toList()[0]
                             .toString()),
                         onTap: () {
-                          context
-                              .read<state_team_mani.Store3>()
-                              .changePlayerCardList(1,
-                              context.read<state_team_mani.Store3>().player[i].values.toList()[0]);
+                          context.read<state_team_mani.Store3>().changeCard2(
+                              'name',
+                              context
+                                  .read<state_team_mani.Store3>()
+                                  .player[i]
+                                  .values
+                                  .toList()[0]
+                                  .toString());
+                          //카드 등번호
+                          context.read<state_team_mani.Store3>().changeCard2(
+                              'number',
+                              context
+                                  .read<state_team_mani.Store3>()
+                                  .player[i]
+                                  .values
+                                  .toList()[2]
+                                  .toString());
                           Navigator.pop(context);
                         },
                       );
@@ -59,10 +74,27 @@ class _Card2State extends State<Card2> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(context
-                .watch<state_team_mani.Store3>()
-                .playerCardList[1]
-                .toString())
+            //카드 포메이션
+            Text(
+              context
+                  .watch<state_team_mani.Store3>()
+                  .card2['position']
+                  .toString(),
+              style: TextStyle(fontSize: 15),
+            ),
+            //선수 이름
+            Text(
+              context.watch<state_team_mani.Store3>().card2['name'].toString(),
+              style: TextStyle(fontSize: 15),
+            ),
+            //등번호
+            Text(
+              context
+                  .watch<state_team_mani.Store3>()
+                  .card2['number']
+                  .toString(),
+              style: TextStyle(fontSize: 15),
+            ),
           ],
         ),
       ),
