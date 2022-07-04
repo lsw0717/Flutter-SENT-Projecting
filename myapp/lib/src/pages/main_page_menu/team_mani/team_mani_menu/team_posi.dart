@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:myapp/src/pages/main_page_menu/team_mani/team_mani_menu/posi_cards/card_1.dart';
 import 'package:myapp/stateDirectory/state_team_mani.dart' as state_team_mani;
 import 'package:provider/provider.dart';
@@ -248,15 +249,30 @@ class _TeamPosiState extends State<TeamPosi> {
                 image: AssetImage('assets/soccer_ground.png'))),
         child: Scaffold(
           backgroundColor: Colors.transparent,
+          //선수 리스트 보여주기 modal side sheet으로
           floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.grey,
               child: Icon(Icons.accessibility_new, color: Colors.white),
               onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return PlayerInfoDialog();
-                    });
+                showModalSideSheet(
+                  withCloseControll: false,
+                  width: MediaQuery.of(context).size.width * 3 / 4,
+                  context: context,
+                  ignoreAppBar: true,
+                  barrierDismissible: true,
+                  body: ListView.builder(
+                    itemCount:
+                        context.read<state_team_mani.Store3>().player.length,
+                    itemBuilder: (context, i) {
+                      return ListTile(
+                        title: Text(
+                            "${context.read<state_team_mani.Store3>().player[i].values.toList()[1]}  "
+                                "${context.read<state_team_mani.Store3>().player[i].values.toList()[0]}  "
+                                "${context.read<state_team_mani.Store3>().player[i].values.toList()[2]}"),
+                      );
+                    },
+                  ),
+                );
               }),
           body: SizedBox(
               width: MediaQuery.of(context).size.width * 1,
@@ -412,18 +428,5 @@ class _TeamPosiState extends State<TeamPosi> {
                     child: Card11()),
               ])),
         ));
-  }
-}
-
-//선수 정보 Dialog
-class PlayerInfoDialog extends StatelessWidget {
-  const PlayerInfoDialog({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('선수 정보 리스트'),
-      content: ListView.builder(itemCount,itemBuilder: (builder,context){}),
-    );
   }
 }

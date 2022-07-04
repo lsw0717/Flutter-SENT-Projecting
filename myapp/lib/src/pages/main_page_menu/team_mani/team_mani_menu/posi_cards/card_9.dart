@@ -28,13 +28,13 @@ class _Card9State extends State<Card9> {
                       return ListTile(
                         title: Text(context
                             .read<state_team_mani.Store3>()
-                            .player[i]
+                            .player[i].values.toList()[0]
                             .toString()),
                         onTap: () {
                           context
                               .read<state_team_mani.Store3>()
                               .changePlayerCardList(8,
-                              context.read<state_team_mani.Store3>().player[i]);
+                              context.read<state_team_mani.Store3>().player[i].values.toList()[0]);
                           Navigator.pop(context);
                         },
                       );
