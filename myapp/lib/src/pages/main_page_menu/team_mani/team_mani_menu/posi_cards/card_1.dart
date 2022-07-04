@@ -23,23 +23,39 @@ class _Card1State extends State<Card1> {
               color: Colors.white,
               child: Center(
                   child: ListView.builder(
-                itemCount: context.read<state_team_mani.Store3>().player.length,
-                itemBuilder: (context, i) {
-                  return ListTile(
-                    title: Text(context
-                        .read<state_team_mani.Store3>()
-                        .player[i].values.toList()[0]
-                        .toString()),
-                    onTap: () {
-                      context
-                          .read<state_team_mani.Store3>()
-                          .changePlayerCardList(0,
-                              context.read<state_team_mani.Store3>().player[i].values.toList()[0]);
-                      Navigator.pop(context);
+                    itemCount: context.read<state_team_mani.Store3>().player.length,
+                    itemBuilder: (context, i) {
+                      return ListTile(
+                        title: Text(context
+                            .read<state_team_mani.Store3>()
+                            .player[i]
+                            .values
+                            .toList()[0]
+                            .toString()),
+                        onTap: () {
+                          //카드 이름 바꾸기
+                          context.read<state_team_mani.Store3>().changeCard1(
+                              'name',
+                              context
+                                  .read<state_team_mani.Store3>()
+                                  .player[i]
+                                  .values
+                                  .toList()[0]
+                                  .toString());
+                          //카드 등번호
+                          context.read<state_team_mani.Store3>().changeCard1(
+                              'number',
+                              context
+                                  .read<state_team_mani.Store3>()
+                                  .player[i]
+                                  .values
+                                  .toList()[2]
+                                  .toString());
+                          Navigator.pop(context);
+                        },
+                      );
                     },
-                  );
-                },
-              )),
+                  )),
             );
           },
         );
@@ -59,10 +75,27 @@ class _Card1State extends State<Card1> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(context
-                .watch<state_team_mani.Store3>()
-                .playerCardList[0]
-                .toString())
+            //카드 포메이션
+            Text(
+              context
+                  .watch<state_team_mani.Store3>()
+                  .card1['position']
+                  .toString(),
+              style: TextStyle(fontSize: 15),
+            ),
+            //선수 이름
+            Text(
+              context.watch<state_team_mani.Store3>().card1['name'].toString(),
+              style: TextStyle(fontSize: 15),
+            ),
+            //등번호
+            Text(
+              context
+                  .watch<state_team_mani.Store3>()
+                  .card1['number']
+                  .toString(),
+              style: TextStyle(fontSize: 15),
+            ),
           ],
         ),
       ),

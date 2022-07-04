@@ -30,18 +30,26 @@ class _TeamPosiState extends State<TeamPosi> {
         '3-4-3') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard1(60, 160);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard1('position', 'ST');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-4-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard1(60, 80);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard1('position', 'LS');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-3-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard1(60, 160);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard1('position', 'ST');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-2-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard1(60, 100);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard1('position', 'LS');
     }
   }
 
@@ -51,18 +59,26 @@ class _TeamPosiState extends State<TeamPosi> {
         '3-4-3') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard2(150, 80);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard2('position', 'LF');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-4-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard2(60, 240);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard2('position', 'RS');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-3-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard2(120, 160);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard2('position', 'CF');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-2-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard2(60, 220);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard2('position', 'RS');
     }
   }
 
@@ -71,18 +87,26 @@ class _TeamPosiState extends State<TeamPosi> {
     if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-4-3') {
       context.read<state_team_mani.Store2>().changeCard3(150, 240);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard3('position', 'RF');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-4-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard3(150, 160);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard3('position', 'CAM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-3-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard3(150, 20);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard3('position', 'LM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-2-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard3(150, 160);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard3('position', 'CAM');
     }
   }
 
@@ -92,18 +116,26 @@ class _TeamPosiState extends State<TeamPosi> {
         '3-4-3') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard4(250, 10);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard4('position', 'LM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-4-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard4(250, 10);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard4('position', 'LM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-3-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard4(150, 300);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard4('position', 'RM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-2-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard4(210, 10);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard4('position', 'LM');
     }
   }
 
@@ -113,18 +145,26 @@ class _TeamPosiState extends State<TeamPosi> {
         '3-4-3') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard5(250, 110);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard5('position', 'LCM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-4-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard5(250, 110);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard5('position', 'LCM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-3-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard5(220, 160);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard5('position', 'CM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-2-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard5(250, 100);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard5('position', 'LDM');
     }
   }
 
@@ -134,18 +174,26 @@ class _TeamPosiState extends State<TeamPosi> {
         '3-4-3') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard6(250, 210);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard6('position', 'RCM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-4-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard6(250, 210);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard6('position', 'RCM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-3-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard6(270, 80);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard6('position', 'LDM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-2-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard6(250, 220);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard6('position', 'RDM');
     }
   }
 
@@ -155,18 +203,26 @@ class _TeamPosiState extends State<TeamPosi> {
         '3-4-3') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard7(250, 310);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard7('position', 'RM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-4-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard7(250, 310);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard7('position', 'RM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-3-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard7(270, 240);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard7('position', 'RDM');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-2-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard7(210, 310);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard7('position', 'RM');
     }
   }
 
@@ -176,18 +232,26 @@ class _TeamPosiState extends State<TeamPosi> {
         '3-4-3') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard8(350, 60);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard8('position', 'LCB');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-4-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard8(350, 60);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard8('position', 'LCB');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-3-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard8(320, 160);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard8('position', 'CB');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-2-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard8(390, 60);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard8('position', 'CB');
     }
   }
 
@@ -197,18 +261,26 @@ class _TeamPosiState extends State<TeamPosi> {
         '3-4-3') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard9(350, 160);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard9('position', 'CB');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-4-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard9(350, 160);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard9('position', 'CB');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-3-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard9(380, 30);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard9('position', 'LCB');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-2-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard9(340, 160);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard9('position', 'LCB');
     }
   }
 
@@ -218,18 +290,26 @@ class _TeamPosiState extends State<TeamPosi> {
         '3-4-3') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard10(350, 260);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard10('position', 'RCB');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-4-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard10(350, 260);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard10('position', 'RCB');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-3-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard10(380, 290);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard10('position', 'RCB');
     } else if (context.read<state_team_mani.Store2>().dropDownSelectedValue ==
         '3-2-2-1-2') {
       //위치 바꾸기
       context.read<state_team_mani.Store2>().changeCard10(390, 260);
+      //카드 포지션
+      context.read<state_team_mani.Store3>().changeCard10('position', 'RCB');
     }
   }
 
@@ -242,7 +322,7 @@ class _TeamPosiState extends State<TeamPosi> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        //배경 이미지 (축구 코트)
+      //배경 이미지 (축구 코트)
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
@@ -262,12 +342,12 @@ class _TeamPosiState extends State<TeamPosi> {
                   barrierDismissible: true,
                   body: ListView.builder(
                     itemCount:
-                        context.read<state_team_mani.Store3>().player.length,
+                    context.read<state_team_mani.Store3>().player.length,
                     itemBuilder: (context, i) {
                       return ListTile(
                         title: Text(
-                            "${context.read<state_team_mani.Store3>().player[i].values.toList()[1]}  "
-                                "${context.read<state_team_mani.Store3>().player[i].values.toList()[0]}  "
+                            "${context.read<state_team_mani.Store3>().player[i].values.toList()[1]}                      "
+                                "${context.read<state_team_mani.Store3>().player[i].values.toList()[0]}                       "
                                 "${context.read<state_team_mani.Store3>().player[i].values.toList()[2]}"),
                       );
                     },
@@ -306,11 +386,11 @@ class _TeamPosiState extends State<TeamPosi> {
                                             context
                                                 .read<state_team_mani.Store2>()
                                                 .changeDropDownSelectedValue(
-                                                    context
-                                                        .read<
-                                                            state_team_mani
-                                                                .Store2>()
-                                                        .dropDownList[i]);
+                                                context
+                                                    .read<
+                                                    state_team_mani
+                                                        .Store2>()
+                                                    .dropDownList[i]);
                                             Navigator.pop(context);
                                             card1Pos();
                                             card2Pos();
@@ -372,59 +452,81 @@ class _TeamPosiState extends State<TeamPosi> {
                 ),
 
                 //선수 1
-                Positioned(
+                AnimatedPositioned(
                     top: context.read<state_team_mani.Store2>().top1,
                     left: context.read<state_team_mani.Store2>().left1,
+                    duration: Duration(milliseconds: 260),
+                    curve: Curves.easeIn,
                     child: Card1()),
                 //선수 2
-                Positioned(
+                AnimatedPositioned(
                     top: context.read<state_team_mani.Store2>().top2,
                     left: context.read<state_team_mani.Store2>().left2,
+                    duration: Duration(milliseconds: 260),
+                    curve: Curves.easeIn,
                     child: Card2()),
                 //선수 3
-                Positioned(
+                AnimatedPositioned(
                     top: context.read<state_team_mani.Store2>().top3,
                     left: context.read<state_team_mani.Store2>().left3,
+                    duration: Duration(milliseconds: 260),
+                    curve: Curves.easeIn,
                     child: Card3()),
                 //선수 4
-                Positioned(
+                AnimatedPositioned(
                     top: context.read<state_team_mani.Store2>().top4,
                     left: context.read<state_team_mani.Store2>().left4,
+                    duration: Duration(milliseconds: 260),
+                    curve: Curves.easeIn,
                     child: Card4()),
                 //선수 5
-                Positioned(
+                AnimatedPositioned(
                     top: context.read<state_team_mani.Store2>().top5,
                     left: context.read<state_team_mani.Store2>().left5,
+                    duration: Duration(milliseconds: 260),
+                    curve: Curves.easeIn,
                     child: Card5()),
                 //선수 6
-                Positioned(
+                AnimatedPositioned(
                     top: context.read<state_team_mani.Store2>().top6,
                     left: context.read<state_team_mani.Store2>().left6,
+                    duration: Duration(milliseconds: 260),
+                    curve: Curves.easeIn,
                     child: Card6()),
                 //선수 7
-                Positioned(
+                AnimatedPositioned(
                     top: context.read<state_team_mani.Store2>().top7,
                     left: context.read<state_team_mani.Store2>().left7,
+                    duration: Duration(milliseconds: 260),
+                    curve: Curves.easeIn,
                     child: Card7()),
                 //선수 8
-                Positioned(
+                AnimatedPositioned(
                     top: context.read<state_team_mani.Store2>().top8,
                     left: context.read<state_team_mani.Store2>().left8,
+                    duration: Duration(milliseconds: 260),
+                    curve: Curves.easeIn,
                     child: Card8()),
                 //선수 9
-                Positioned(
+                AnimatedPositioned(
                     top: context.read<state_team_mani.Store2>().top9,
                     left: context.read<state_team_mani.Store2>().left9,
+                    duration: Duration(milliseconds: 260),
+                    curve: Curves.easeIn,
                     child: Card9()),
                 //선수 10
-                Positioned(
+                AnimatedPositioned(
                     top: context.read<state_team_mani.Store2>().top10,
                     left: context.read<state_team_mani.Store2>().left10,
+                    duration: Duration(milliseconds: 260),
+                    curve: Curves.easeIn,
                     child: Card10()),
                 //선수 11
-                Positioned(
+                AnimatedPositioned(
                     top: context.read<state_team_mani.Store2>().top11,
                     left: context.read<state_team_mani.Store2>().left11,
+                    duration: Duration(milliseconds: 260),
+                    curve: Curves.easeIn,
                     child: Card11()),
               ])),
         ));

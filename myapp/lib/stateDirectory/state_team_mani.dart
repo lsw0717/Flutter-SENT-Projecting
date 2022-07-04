@@ -6,7 +6,7 @@ class Store1 extends ChangeNotifier {
   var teaminfo = {
     '팀 명': '토트넘',
     '팀 이미지':
-        '/data/user/0/com.example.myapp/cache/image_picker7600132639349164358.jpg',
+    '/data/user/0/com.example.myapp/cache/image_picker7600132639349164358.jpg',
     '팀장': '홍길동',
     '팀 소개': '하이',
     '팀 등록일': '2022.05.28',
@@ -197,42 +197,195 @@ class Store2 extends ChangeNotifier {
 
 //card 1 ~ 11 까지 에서 사용하는 state
 class Store3 extends ChangeNotifier {
-  //카드 클릭했을 때 나오는 이름 리스틑 ( Bottom up sheet에 나오는 이름들)
-  List<Map<String, String>> player = [
-    {'name': '이상우', 'position': 'LW', 'number': '7'},
-    {'name': '이상빈', 'position': 'LW', 'number': '7'},
-    {'name': '윤상원', 'position': 'LW', 'number': '7'},
-    {'name': '김남형', 'position': 'LW', 'number': '7'},
-    {'name': '장준하', 'position': 'LW', 'number': '7'},
-    {'name': '강동균', 'position': 'LW', 'number': '7'},
-    {'name': '이재혁', 'position': 'LW', 'number': '7'},
-    {'name': '서영민', 'position': 'LW', 'number': '7'},
-    {'name': '김예준', 'position': 'LW', 'number': '7'},
-    {'name': '이승호', 'position': 'LW', 'number': '7'},
-    {'name': '전대윤', 'position': 'LW', 'number': '7'}
+  //카드 클릭했을 때 나오는 이름 리스틑 ( Bottom up sheet에 나오는 이름들) DB에서 받아오는 값
+  var player = [
+    {
+      'name': '이상우',
+      'position0': 'ST',
+      'number': '1',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '이상빈',
+      'position0': 'LW',
+      'number': '2',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '윤상원',
+      'position0': 'RW',
+      'number': '3',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '김남형',
+      'position0': 'LM',
+      'number': '4',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '장준하',
+      'position0': 'RM',
+      'number': '5',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '강동균',
+      'position0': 'LB',
+      'number': '6',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '이재혁',
+      'position0': 'RB',
+      'number': '7',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '서영민',
+      'position0': 'LCB',
+      'number': '8',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '김예준',
+      'position0': 'RCB',
+      'number': '9',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '이승호',
+      'position0': 'LW',
+      'number': '7',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '전대윤',
+      'position0': 'LW',
+      'number': '7',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '후보1',
+      'position0': 'RM',
+      'number': '7',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '후보2',
+      'position0': 'RCB',
+      'number': '7',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '후보3',
+      'position0': 'GK',
+      'number': '12',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
+    {
+      'name': '후보4',
+      'position0': 'ST',
+      'number': '11',
+      'email': 'email@gmail.com',
+      'positioned': false,
+      'position1': ''
+    },
   ];
 
-  //카드 1 ~ 11까지 선수 이름 넣은 리스트
-  var playerCardList = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11'
-  ];
+  var card1 = {'position': 'ST ', 'name': '', 'number': ''};
+  var card2 = {'position': 'LF ', 'name': '', 'number': ''};
+  var card3 = {'position': 'RF ', 'name': '', 'number': ''};
+  var card4 = {'position': 'LM ', 'name': '', 'number': ''};
+  var card5 = {'position': 'LCM', 'name': '', 'number': ''};
+  var card6 = {'position': 'RCM', 'name': '', 'number': ''};
+  var card7 = {'position': 'RM ', 'name': '', 'number': ''};
+  var card8 = {'position': 'LCB', 'name': '', 'number': ''};
+  var card9 = {'position': 'CB ', 'name': '', 'number': ''};
+  var card10 = {'position': 'RCB', 'name': '', 'number': ''};
+  var card11 = {'position': 'GK ', 'name': '', 'number': ''};
 
-  //playerCardList에 선수 이름 추가하는 함수
-  changePlayerCardList(int index, String value) {
-    if (playerCardList[index].isNotEmpty) {
-      playerCardList.removeAt(index);
-    }
-    playerCardList.insert(index, value);
+  changeCard1(String key, String value) {
+    card1[key] = value;
     notifyListeners();
   }
+
+  changeCard2(String key, String value) {
+    card2[key] = value;
+    notifyListeners();
+  }
+
+  changeCard3(String key, String value) {
+    card3[key] = value;
+    notifyListeners();
+  }
+
+  changeCard4(String key, String value) {
+    card4[key] = value;
+    notifyListeners();
+  }
+
+  changeCard5(String key, String value) {
+    card5[key] = value;
+    notifyListeners();
+  }
+
+  changeCard6(String key, String value) {
+    card6[key] = value;
+    notifyListeners();
+  }
+
+  changeCard7(String key, String value) {
+    card7[key] = value;
+    notifyListeners();
+  }
+
+  changeCard8(String key, String value) {
+    card8[key] = value;
+    notifyListeners();
+  }
+
+  changeCard9(String key, String value) {
+    card9[key] = value;
+    notifyListeners();
+  }
+
+  changeCard10(String key, String value) {
+    card10[key] = value;
+    notifyListeners();
+  }
+
+  changeCard11(String key, String value) {
+    card11[key] = value;
+    notifyListeners();
+  }
+
 }
