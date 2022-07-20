@@ -21,40 +21,27 @@ class _Card9State extends State<Card9> {
             return Container(
               height: 300,
               color: Colors.white,
-              child: Center(
-                  child: ListView.builder(
-                    itemCount: context.read<state_team_mani.Store3>().player.length,
-                    itemBuilder: (context, i) {
-                      return ListTile(
-                        title: Text(context
-                            .read<state_team_mani.Store3>()
-                            .player[i]
-                            .values
-                            .toList()[0]
-                            .toString()),
-                        onTap: () {
-                          context.read<state_team_mani.Store3>().changeCard9(
-                              'name',
-                              context
-                                  .read<state_team_mani.Store3>()
-                                  .player[i]
-                                  .values
-                                  .toList()[0]
-                                  .toString());
-                          //카드 등번호
-                          context.read<state_team_mani.Store3>().changeCard9(
-                              'number',
-                              context
-                                  .read<state_team_mani.Store3>()
-                                  .player[i]
-                                  .values
-                                  .toList()[2]
-                                  .toString());
-                          Navigator.pop(context);
-                        },
-                      );
-                    },
-                  )),
+              child: ListView.builder(
+                  itemCount: context.read<state_team_mani.Store3>().bottomlist(0).length,
+                  itemBuilder: (context, i){
+                    return ListTile(
+                      title: Text(context.read<state_team_mani.Store3>().bottomlist(1)[i]['name']),
+                      onTap: ()  async {
+                        //앱 최초 실행 후 team position page에 들어왔을 때 대비하기 위해,
+                        if(context.read<state_team_mani.Store3>().card9['name']!=''){
+                          //카드에서 삭제한 선수 positioned true로 바꾸기(선수 선택 리스트에 추가)
+                          await context.read<state_team_mani.Store3>().changePositioned2(context.read<state_team_mani.Store3>().card9);
+                        }
+                        //카드에 선수 이름 추가
+                        context.read<state_team_mani.Store3>().changeCard9('name',context.read<state_team_mani.Store3>().bottomlist(1)[i]['name']);
+                        //카드에 선수 등번호 추가
+                        context.read<state_team_mani.Store3>().changeCard9('number',context.read<state_team_mani.Store3>().bottomlist(1)[i]['number']);
+                        //카드에 추가한 선수 positioned false로 바꾸기(선수 선택 리스트에서 삭제)
+                        context.read<state_team_mani.Store3>().changePositioned(i);
+                        Navigator.pop(context);
+                      },
+                    );
+                  })
             );
           },
         );
