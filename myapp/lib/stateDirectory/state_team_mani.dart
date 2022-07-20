@@ -321,17 +321,17 @@ class Store3 extends ChangeNotifier {
     },
   ];
 
-  var card1 = {'position': 'ST ', 'name': '', 'number': ''};
-  var card2 = {'position': 'LF ', 'name': '', 'number': ''};
-  var card3 = {'position': 'RF ', 'name': '', 'number': ''};
-  var card4 = {'position': 'LM ', 'name': '', 'number': ''};
+  var card1 = {'position': 'ST', 'name': '', 'number': ''};
+  var card2 = {'position': 'LF', 'name': '', 'number': ''};
+  var card3 = {'position': 'RF', 'name': '', 'number': ''};
+  var card4 = {'position': 'LM', 'name': '', 'number': ''};
   var card5 = {'position': 'LCM', 'name': '', 'number': ''};
   var card6 = {'position': 'RCM', 'name': '', 'number': ''};
-  var card7 = {'position': 'RM ', 'name': '', 'number': ''};
+  var card7 = {'position': 'RM', 'name': '', 'number': ''};
   var card8 = {'position': 'LCB', 'name': '', 'number': ''};
-  var card9 = {'position': 'CB ', 'name': '', 'number': ''};
+  var card9 = {'position': 'CB', 'name': '', 'number': ''};
   var card10 = {'position': 'RCB', 'name': '', 'number': ''};
-  var card11 = {'position': 'GK ', 'name': '', 'number': ''};
+  var card11 = {'position': 'GK', 'name': '', 'number': ''};
 
   changeCard1(String key, String value) {
     card1[key] = value;
