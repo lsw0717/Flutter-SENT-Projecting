@@ -13,12 +13,28 @@ class UserRegi extends StatefulWidget {
 
 class _UserRegiState extends State<UserRegi> {
   var inputNickNameData = TextEditingController(); //닉네임  textcontroller
-  var inputPositonData = TextEditingController(); //선호 포지션  textcontroller
-  var inputProData = TextEditingController(); //선출 여부  textcontroller
   var nickNameUsable = false; // 닉네임 중복 여부를 확인하기 위한 state
   var areaIsTrue = false; //활동 지역 필수 입력 사항을 조종하기 위한 state
   //유저 정보를 모두 담아 저장하는 map 형식의 state
   var userFullData = {'nickname': '', 'area': '', 'position': '', 'pro': ''};
+
+  // 선호 포지션 dropdown lsit
+  List<String> posidropdownList = ['포지션 선택', '공격수', '수비수', '미드필더', '골키퍼'];
+
+  // 선호 포지션 dropdown value
+  String posiselectedDropdown = '포지션 선택';
+
+  // 선호 포지션 선택 유무 플래그
+  bool ispositioned = false;
+
+  // 프로유무 dropdown lsit
+  List<String> prodropdownList = ['선출여부 선택', '네', '아니요'];
+
+  // 프로유무 dropdown value
+  String proselectedDropdown = '선출여부 선택';
+
+  // 프로유무 선택 유무 플래그
+  bool isproed = false;
 
   // 시/도 데이터
   var areaData = [
@@ -150,24 +166,23 @@ class _UserRegiState extends State<UserRegi> {
                 ]),
               ),
               //활동 지역
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: ElevatedButton(
-                    child: Text('활동 지역 선택  (필수)'),
-                    onPressed: () {
-                      setState(() {
-                        areaIsTrue = false;
+
+              ElevatedButton(
+                child: Text('활동 지역 선택  (필수)'),
+                onPressed: () {
+                  setState(() {
+                    areaIsTrue = false;
+                  });
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AreaDialog(
+                          areaData: areaData,
+                          areaDataSave: areaDataSave,
+                        );
                       });
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AreaDialog(
-                              areaData: areaData,
-                              areaDataSave: areaDataSave,
-                            );
-                          });
-                    },
-                  )),
+                },
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -175,55 +190,58 @@ class _UserRegiState extends State<UserRegi> {
                       .decode(base64.decode(userFullData['area'].toString()))),
                 ],
               ),
-              //선호 포지션 입력
+
+              //선수 포지션 dropdown
+              DropdownButton(
+                value: posiselectedDropdown,
+                items: posidropdownList.map((String item) {
+                  return DropdownMenuItem<String>(
+                    child: Text(item),
+                    value: item,
+                  );
+                }).toList(),
+                onChanged: (dynamic value) {
+                  setState(() {
+                    posiselectedDropdown = value;
+                    if (posiselectedDropdown != '포지션 선택') {
+                      ispositioned = true;
+                      userFullData['position'] =
+                          base64.encode(utf8.encode(posiselectedDropdown));
+                    } else {
+                      snackBar('선호 포지션을 예시 중 하나를 선택하세요');
+                      ispositioned = false;
+                    }
+                  });
+                },
+              ),
+
+              //선출 여부 dropdown
               Padding(
-                padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                child: TextField(
-                  controller: inputPositonData,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: '선호 포지션  (선택)',
-                      hintText: '택 1 .(ex, 공격수, 수비수, 미드필더, 골키퍼)'),
-                  onSubmitted: (String position) {
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: DropdownButton(
+                  value: proselectedDropdown,
+                  items: prodropdownList.map((String item) {
+                    return DropdownMenuItem<String>(
+                      child: Text(item),
+                      value: item,
+                    );
+                  }).toList(),
+                  onChanged: (dynamic value) {
                     setState(() {
-                      if (position == '공격수' ||
-                          position == '수비수' ||
-                          position == '미드필더' ||
-                          position == '골키퍼') {
-                        userFullData['position'] =
-                            base64.encode(utf8.encode(position));
+                      proselectedDropdown = value;
+                      if (proselectedDropdown != '선출여부 선택') {
+                        isproed = true;
+                        userFullData['pro'] =
+                            base64.encode(utf8.encode(proselectedDropdown));
                       } else {
-                        inputPositonData.text = '';
-                        snackBar('선호 포지션을 예시 중 하나로 입력하세요');
+                        snackBar('선출 여부를 예시 중 하나를 선택하세요');
+                        isproed = false;
                       }
                     });
                   },
                 ),
               ),
-              //선출 여부 입력
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                child: TextField(
-                  controller: inputProData,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: '선출 여부 (필수)',
-                      hintText: '(ex, 네, 아니요)'),
-                  onSubmitted: (String pro) {
-                    if (pro.isNotEmpty && !pro.startsWith(' ')) {
-                      if (inputProData.text == '네' ||
-                          inputProData.text == '아니요') {
-                        setState(() {
-                          userFullData['pro'] = base64.encode(utf8.encode(pro));
-                        });
-                      } else {
-                        inputProData.text = '';
-                        snackBar('선출 여부를 \'네\', \'아니요\'로 답하세요');
-                      }
-                    }
-                  },
-                ),
-              ),
+
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 60.0, 0, 0),
                 child: ElevatedButton(
@@ -231,7 +249,8 @@ class _UserRegiState extends State<UserRegi> {
                     onPressed: () {
                       if (inputNickNameData.text.isNotEmpty &&
                           areaIsTrue == true &&
-                          inputProData.text.isNotEmpty) {
+                          ispositioned == true &&
+                          isproed == true) {
                         if (nickNameUsable == false) {
                           snackBar('닉네임 중복 체크 해주세요');
                         } else {
@@ -248,7 +267,7 @@ class _UserRegiState extends State<UserRegi> {
                         snackBar('필수 사항들을 모두 입력해 주세요');
                       }
                     }),
-              )
+              ),
             ],
           ),
         ),

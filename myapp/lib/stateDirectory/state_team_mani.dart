@@ -6,7 +6,7 @@ class Store1 extends ChangeNotifier {
   var teaminfo = {
     '팀 명': '토트넘',
     '팀 이미지':
-    '/data/user/0/com.example.myapp/cache/image_picker7600132639349164358.jpg',
+        '/data/user/0/com.example.myapp/cache/image_picker7600132639349164358.jpg',
     '팀장': '홍길동',
     '팀 소개': '하이',
     '팀 등록일': '2022.05.28',
@@ -321,17 +321,62 @@ class Store3 extends ChangeNotifier {
     },
   ];
 
-  var card1 = {'position': 'ST ', 'name': '', 'number': ''};
-  var card2 = {'position': 'LF ', 'name': '', 'number': ''};
-  var card3 = {'position': 'RF ', 'name': '', 'number': ''};
-  var card4 = {'position': 'LM ', 'name': '', 'number': ''};
+  //bottomModalSheet 선수 리스트 전용 데이터(백에서 받아온 데이터를 positioned false인 선수 데이터만 남게 재가공한 리스트이다.).
+  var player2 = [];
+
+  //선수 postitioned == false 에 따른 bottomModalSheet 리스트
+  bottomlist(int i) {
+    //i == 0 백에서 받아온 데이터 positioned 여부로 재가공
+    if (i == 0) {
+      player2.clear();
+      for (var value in player) {
+        if (value['positioned'] == false) {
+          player2.add(value);
+        }
+      }
+      return player2;
+    }
+    //i == 1 재가공 데이터 return
+    else if (i == 1) {
+      return player2;
+    }
+  }
+
+  //선수 postitioned == false 에 따른 bottomModalSheet 리스트에서 값 선택시 positioned = !positoned 로 바꿈. bottomModalSheet 리스트에 안보이게 하기.
+  changePositioned(int i) {
+    player2[i]['positioned'] = true;
+    notifyListeners();
+  }
+
+  //현재 positioned true인 선수를 positioned false로 바꿔서 bottomModalSheet 리스트에 보이게 하기.
+  changePositioned2(Map<String, String> card) {
+    //백에서 받아온 선수 데이터 for문 돌리기
+    for (var value in player) {
+      //현재 positioned true인 선수와(카드에 올라간 선수) == for문 돌린 Map['name']의 선수
+      //즉 카드에 올라간 선수 데이터 player에서 찾는거임 그대로 player2에 추가하려고.
+      if ((value['name'] == card['name']) &&
+          (value['number'] == card['number'])) {
+        //positioned 를 다시 false로 바꿔준다.
+        value['positioned'] = false;
+        //positioned를 false로 바꿨으니까 player2(positioned false만 들어갈 수 있는 리스트)에 추가해준다.
+        player2.add(value);
+        break;
+      }
+    }
+    notifyListeners();
+  }
+
+  var card1 = {'position': 'ST', 'name': '', 'number': ''};
+  var card2 = {'position': 'LF', 'name': '', 'number': ''};
+  var card3 = {'position': 'RF', 'name': '', 'number': ''};
+  var card4 = {'position': 'LM', 'name': '', 'number': ''};
   var card5 = {'position': 'LCM', 'name': '', 'number': ''};
   var card6 = {'position': 'RCM', 'name': '', 'number': ''};
-  var card7 = {'position': 'RM ', 'name': '', 'number': ''};
+  var card7 = {'position': 'RM', 'name': '', 'number': ''};
   var card8 = {'position': 'LCB', 'name': '', 'number': ''};
-  var card9 = {'position': 'CB ', 'name': '', 'number': ''};
+  var card9 = {'position': 'CB', 'name': '', 'number': ''};
   var card10 = {'position': 'RCB', 'name': '', 'number': ''};
-  var card11 = {'position': 'GK ', 'name': '', 'number': ''};
+  var card11 = {'position': 'GK', 'name': '', 'number': ''};
 
   changeCard1(String key, String value) {
     card1[key] = value;
@@ -387,5 +432,4 @@ class Store3 extends ChangeNotifier {
     card11[key] = value;
     notifyListeners();
   }
-
 }
