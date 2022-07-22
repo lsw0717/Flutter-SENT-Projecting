@@ -1,2 +1,0 @@
-# CENT-ANDROID
-CENT ANDROID Repository
